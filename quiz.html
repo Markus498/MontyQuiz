@@ -12,7 +12,14 @@
 		<title>Monty Python Quiz</title>
 		
 		
-		<script type = "text/javascript">			
+		<script type = "text/javascript">
+			document.addEventListener("deviceready", deviceIsReady, false);
+			function deviceIsReady(){
+				alert("DEVICE IS READY!");
+			}
+
+
+		/*
 			var answers = new Array("Patsy", "False", "Shrubbery", "Moose", "Tim", "Swallow", "Dennis", "Holy Hand Grenade of Antioch", "Rabbit", "Duck");			
 			
 			function getAnswers(){
@@ -95,7 +102,7 @@
 							questionAnswers[j].checked = false;
 						}
 					}					
-				}		
+				} */		
 		</script>
 		
 	</head>
