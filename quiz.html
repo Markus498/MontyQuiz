@@ -12,11 +12,8 @@
 		<title>Monty Python Quiz</title>
 		
 		
-		<script type = "text/javascript">
-		
-			
-			var answers = new Array("Patsy", "False", "Shrubbery", "Moose", "Tim", "Swallow", "Dennis", "Holy Hand Grenade of Antioch", "Rabbit", "Duck");
-			
+		<script type = "text/javascript">			
+			var answers = new Array("Patsy", "False", "Shrubbery", "Moose", "Tim", "Swallow", "Dennis", "Holy Hand Grenade of Antioch", "Rabbit", "Duck");			
 			
 			function getAnswers(){
 			
@@ -64,53 +61,41 @@
 				for (var i=0; i<submittedAnswers.length; i++){
 					var userAnswers = submittedAnswers[i];
 					for (var j=0; j<userAnswers.length; j++){
-						if (userAnswers[j].checked) checkedAnswers.push(userAnswers[j]);	
+						if (userAnswers[j].checked){ checkedAnswers.push(userAnswers[j]);}	
 					}
 				}
 				var correct =0;						
 				
 				for (var k=0; k<answers.length; k++){
-					if (answers[k]==checkedAnswers[k].value) ++correct;				
+					if (answers[k]==checkedAnswers[k].value){ ++correct;}				
 				}
 				
 				var score = (correct / 10) * 100;
 				
-				if (score >= 20 && score <= 30) alert("Your score was: " + score + "%" + "\n" +  " Your mother was a hamster, and your father smelled of elderberries!");
+				if (score >= 20 && score <= 30){ alert("Your score was: " + score + "%" + "\n" +  " Your mother was a hamster, and your father smelled of elderberries!");}
 				
-				if ( score >= 40 && score <= 50) alert("Your score was: " + score + "%" + "\n"+ "NI! NI! NI! NI! NI!");
+				if ( score >= 40 && score <= 50){ alert("Your score was: " + score + "%" + "\n"+ "NI! NI! NI! NI! NI!");}
 				
-				if (score >= 60 && score <= 70) alert("Your score was: " + score + "%" + "\n" + "Brave brave Sir Robin, he bravely ran away!");
+				if (score >= 60 && score <= 70){ alert("Your score was: " + score + "%" + "\n" + "Brave brave Sir Robin, he bravely ran away!");}
 				
-				if (score >= 80 && score <= 90) alert("Your score was: " + score + "%" + "\n" + "You and your knights have arrived at Camelot. It is a silly place.");
+				if (score >= 80 && score <= 90){ alert("Your score was: " + score + "%" + "\n" + "You and your knights have arrived at Camelot. It is a silly place.");}
 				
-				if (score >= 90 && score <= 95) alert("Your score was: " + score + "%" + "\n" + "There are some who call me....Tim.");
+				if (score >= 90 && score <= 95){ alert("Your score was: " + score + "%" + "\n" + "There are some who call me....Tim.");}
 				
-				if (score == 100) alert("Behold! The Holy Grail. You step forth to claim it for the Almighty, but what is this? THE BLOODY FRENCH OF CASTLE AUGH STAND IN YOUR WAY! Fear not, for the brave Knights of the Round Table shall smite these foes!...Not really. You are arrested by policemen for violating history. THE END");
+				if (score == 100){ alert("Behold! The Holy Grail. You step forth to claim it for the Almighty, but what is this? THE BLOODY FRENCH OF CASTLE AUGH STAND IN YOUR WAY! Fear not, for the brave Knights of the Round Table shall smite these foes!...Not really. You are arrested by policemen for violating history. THE END");}
 				
-				if (score >= 0 && score < 20) alert("You didn't even try..for this grave injustice, you will forever be cursed to have rabbits follow you around everywhere, awaiting their chance to utterly destroy you with their...with their...RABBITY POWERS.");
+				if (score >= 0 && score < 20){ alert("You didn't even try..for this grave injustice, you will forever be cursed to have rabbits follow you around everywhere, awaiting their chance to utterly destroy you with their...with their...RABBITY POWERS.");}
 			}
-
 
 				function clearForm(){
 					var submittedAnswers = getAnswers();
-					
 					for (var i=0; i<submittedAnswers.length; i++){
 							var questionAnswers = submittedAnswers[i];
 						for (var j=0; j<questionAnswers.length; j++){
 							questionAnswers[j].checked = false;
 						}
-					}
-					
-					
-				}
-		
-		
-		
-		
-		
-		
-		
-		
+					}					
+				}		
 		</script>
 		
 	</head>
