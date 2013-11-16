@@ -13,13 +13,7 @@
 		
 		
 		<script type = "text/javascript">
-			document.addEventListener("deviceready", deviceIsReady, false);
-			function deviceIsReady(){
-				alert("DEVICE IS READY!");
-			}
-
-
-		/*
+			
 			var answers = new Array("Patsy", "False", "Shrubbery", "Moose", "Tim", "Swallow", "Dennis", "Holy Hand Grenade of Antioch", "Rabbit", "Duck");			
 			
 			function getAnswers(){
@@ -102,7 +96,7 @@
 							questionAnswers[j].checked = false;
 						}
 					}					
-				} */		
+				} 		
 		</script>
 		
 	</head>
@@ -253,9 +247,9 @@
 						<label for="question10-radio-d">D. Wood</label>
 				</fieldset>
 				</div>
-				<button type="button" name="submit" value="submit" onclick = "calculateScore()" data-theme="b">Submit</button>
+				<button type="button" name="submit" value="submit" onmousedown = "calculateScore()" data-theme="b">Submit</button>
 			
-				<button type="button" name="clear" value="Clear Answers" onclick="clearForm()" data-theme="b">Reset Form</button>
+				<button type="button" name="clear" value="Clear Answers" onmousedown="clearForm()" data-theme="b">Reset Form</button>
 				
 			</form>
 				
