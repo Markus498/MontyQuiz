@@ -18,57 +18,29 @@
 			
 			function getAnswers(){
 			
-				var q1Answers = new Array();
-				var q2Answers = new Array();
-				var q3Answers = new Array();
-				var q4Answers = new Array();
-				var q5Answers = new Array();
-				var q6Answers = new Array();
-				var q7Answers = new Array();
-				var q8Answers = new Array();
-				var q9Answers = new Array();
-				var q10Answers = new Array();
-				
-				q1Answers = document.getElementsByName("question1");
-				q2Answers = document.getElementsByName("question2");
-				q3Answers = document.getElementsByName("question3");
-				q4Answers = document.getElementsByName("question4");
-				q5Answers = document.getElementsByName("question5");
-				q6Answers = document.getElementsByName("question6");
-				q7Answers = document.getElementsByName("question7");
-				q8Answers = document.getElementsByName("question8");
-				q9Answers = document.getElementsByName("question9");
-				q10Answers = document.getElementsByName("question10");
-				
 				var submittedAnswers = new Array();
 				
-				submittedAnswers.push(q1Answers);
-				submittedAnswers.push(q2Answers);
-				submittedAnswers.push(q3Answers);
-				submittedAnswers.push(q4Answers);
-				submittedAnswers.push(q5Answers);
-				submittedAnswers.push(q6Answers);
-				submittedAnswers.push(q7Answers);
-				submittedAnswers.push(q8Answers);
-				submittedAnswers.push(q9Answers);
-				submittedAnswers.push(q10Answers);
-			
+				submittedAnswers[0] = $('input[name=question1]:checked', '#montyQuiz').val();
+				submittedAnswers[1] = $('input[name=question2]:checked', '#montyQuiz').val();
+				submittedAnswers[2] = $('input[name=question3]:checked', '#montyQuiz').val();
+				submittedAnswers[3] = $('input[name=question4]:checked', '#montyQuiz').val();
+				submittedAnswers[4] = $('input[name=question5]:checked', '#montyQuiz').val();
+				submittedAnswers[5] = $('input[name=question6]:checked', '#montyQuiz').val();
+				submittedAnswers[6] = $('input[name=question7]:checked', '#montyQuiz').val();
+				submittedAnswers[7] = $('input[name=question8]:checked', '#montyQuiz').val();
+				submittedAnswers[8] = $('input[name=question9]:checked', '#montyQuiz').val();
+				submittedAnswers[9] = $('input[name=question10]:checked', '#montyQuiz').val();
+				
 				return submittedAnswers;
 			}
 				
 			function calculateScore(){
 				var submittedAnswers = getAnswers();
-				var checkedAnswers = new Array();
-				for (var i=0; i<submittedAnswers.length; i++){
-					var userAnswers = submittedAnswers[i];
-					for (var j=0; j<userAnswers.length; j++){
-						if (userAnswers[j].checked){ checkedAnswers.push(userAnswers[j]);}	
-					}
-				}
+				
 				var correct =0;						
 				
-				for (var k=0; k<answers.length; k++){
-					if (answers[k]==checkedAnswers[k].value){ ++correct;}				
+				for (var k=0; k<submittedAnswers.length; k++){
+					if (answers[k]==submittedAnswers[k]){ ++correct;}				
 				}
 				
 				var score = (correct / 10) * 100;
@@ -87,16 +59,15 @@
 				
 				if (score >= 0 && score < 20){ alert("You didn't even try..for this grave injustice, you will forever be cursed to have rabbits follow you around everywhere, awaiting their chance to utterly destroy you with their...with their...RABBITY POWERS.");}
 			}
-				/*
-				function clearForm(){
-					var submittedAnswers = getAnswers();
-					for (var i=0; i<submittedAnswers.length; i++){
-							var questionAnswers = submittedAnswers[i];
-						for (var j=0; j<questionAnswers.length; j++){
-							questionAnswers[j].checked = false;
-						}
-					}					
-				} */		
+		
+		
+			$(document).ready(function(){
+				var submitButton = document.getElementById('submit');
+				submitButton.addEventListener('click', function(){
+					calculateScore();}, false);
+			});
+				
+				
 		</script>
 		
 	</head>
@@ -111,7 +82,7 @@
 			</div>
 			<div data-role = "content" data-theme="b">
 			
-			<form>			
+			<form id="montyQuiz">			
 				<div data-role="fieldcontain">
 				<fieldset data-role="controlgroup" data-type="vertical">
 					<legend>Question 1: What is the name of Arthur's manservant?</legend>
@@ -247,7 +218,7 @@
 						<label for="question10-radio-d">D. Wood</label>
 				</fieldset>
 				</div>
-				<button type="button" name="submit" id="submit" onclick="calculateScore()" data-theme="b">Submit</button>
+				<button type="button" name="submit" id="submit" data-theme="b">Submit</button>
 						
 				
 			</form>
