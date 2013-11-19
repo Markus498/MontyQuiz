@@ -61,11 +61,21 @@
 			}
 		
 		
-			$(document).ready(function(){
-				var submitButton = document.getElementById('submit');
-				submitButton.addEventListener('ontap', function(){
-					calculateScore();}, false);
-			});
+					
+			function onLoad(){
+				document.addEventListener("deviceready", onDeviceReady, false);
+			}
+			
+			function onDeviceReady(){
+				
+				$(document).ready(function(){
+					var submitButton = document.getElementById('submit');
+					submitButton.addEventListener('ontap', function(){
+						calculateScore();}, false);
+				});
+			
+			
+			}
 				
 				
 		</script>
