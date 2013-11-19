@@ -19,20 +19,8 @@
 			function getAnswers(){
 			
 				var submittedAnswers = new Array();
-				
-				
-				submittedAnswers[0] = $('input[name=question1]:checked', '#montyQuiz').val();
-				submittedAnswers[1] = $('input[name=question2]:checked', '#montyQuiz').val();
-				submittedAnswers[2] = $('input[name=question3]:checked', '#montyQuiz').val();
-				submittedAnswers[3] = $('input[name=question4]:checked', '#montyQuiz').val();
-				submittedAnswers[4] = $('input[name=question5]:checked', '#montyQuiz').val();
-				submittedAnswers[5] = $('input[name=question6]:checked', '#montyQuiz').val();
-				submittedAnswers[6] = $('input[name=question7]:checked', '#montyQuiz').val();
-				submittedAnswers[7] = $('input[name=question8]:checked', '#montyQuiz').val();
-				submittedAnswers[8] = $('input[name=question9]:checked', '#montyQuiz').val();
-				submittedAnswers[9] = $('input[name=question10]:checked', '#montyQuiz').val();
-				
-				alert(submittedAnswers[0]);
+				submittedAnswers = $('input:checked');
+				alert(submittedAnswers[0].value);
 				
 				return submittedAnswers;
 			}
