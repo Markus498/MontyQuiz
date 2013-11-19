@@ -32,12 +32,14 @@
 				submittedAnswers[8] = $('input[name=question9]:checked', '#montyQuiz').val();
 				submittedAnswers[9] = $('input[name=question10]:checked', '#montyQuiz').val();
 				
+				alert(submittedAnswers[0]);
+				
 				return submittedAnswers;
 			}
 				
 			function calculateScore(){
 				var submittedAnswers = getAnswers();
-				alert(submittedAnswers[0]);
+				
 				
 				var correct =0;						
 				
