@@ -67,12 +67,10 @@
 			}
 			
 			function onDeviceReady(){
+				var submitButton = document.getElementById('submit');
+				submitButton.addEventListener('ontouch', function(){
+				calculateScore();}, false);
 				
-				$(document).ready(function(){
-					var submitButton = document.getElementById('submit');
-					submitButton.addEventListener('ontap', function(){
-						calculateScore();}, false);
-				});
 			
 			
 			}
