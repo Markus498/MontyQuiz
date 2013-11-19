@@ -5,53 +5,221 @@
 	<head>
 		<meta charset = "UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
-		<script src="phonegap.js"></script>
+		<script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+		
 		<title>Monty Python Quiz</title>
+		
+		
+		<script type = "text/javascript">
+			
+			var answers["Patsy", "False", "Shrubbery", "Moose", "Tim", "Swallow", "Dennis", "Holy Hand Grenade of Antioch", "Rabbit", "Duck"];			
+			
+			function getAnswers(){
+			
+				var submittedAnswers = new Array();
+				submittedAnswers = $('input:checked');
+				alert('HI THERE!');
+				
+				return submittedAnswers;
+			}
+				
+			function calculateScore(){
+				var submittedAnswers = getAnswers();
+				
+				
+				var correct =0;						
+				
+				for (var k=0; k<submittedAnswers.length; k++){
+					if (answers[k]==submittedAnswers[k].value){ ++correct;}				
+				}
+				
+				var score = (correct / 10) * 100;
+				
+				if (score >= 20 && score <= 30){ alert("Your score was: " + score + "%" + "\n" +  " Your mother was a hamster, and your father smelled of elderberries!");}
+				
+				if ( score >= 40 && score <= 50){ alert("Your score was: " + score + "%" + "\n"+ "NI! NI! NI! NI! NI!");}
+				
+				if (score >= 60 && score <= 70){ alert("Your score was: " + score + "%" + "\n" + "Brave brave Sir Robin, he bravely ran away!");}
+				
+				if (score >= 80 && score <= 90){ alert("Your score was: " + score + "%" + "\n" + "You and your knights have arrived at Camelot. It is a silly place.");}
+				
+				if (score >= 90 && score <= 95){ alert("Your score was: " + score + "%" + "\n" + "There are some who call me....Tim.");}
+				
+				if (score == 100){ alert("Behold! The Holy Grail. You step forth to claim it for the Almighty, but what is this? THE BLOODY FRENCH OF CASTLE AUGH STAND IN YOUR WAY! Fear not, for the brave Knights of the Round Table shall smite these foes!...Not really. You are arrested by policemen for violating history. THE END");}
+				
+				if (score >= 0 && score < 20){ alert("You didn't even try..for this grave injustice, you will forever be cursed to have rabbits follow you around everywhere, awaiting their chance to utterly destroy you with their...with their...RABBITY POWERS.");}
+			}
+		
+		/*
+			$(document).ready(function(){
+				var submitButton = document.getElementById('submit');
+				submitButton.addEventListener('click', function(){
+					calculateScore();}, false);
+			});
+		*/
+			
+			
+			
+				
+				
+		</script>
+		
 	</head>
 	
 	<body>
 		<div data-role="page">
+		
+		
 			<div data-role = "header">
-				<h1>Answer Me These Questions Three</h1>
+				<h1>Quiz</h1>
+				<a href="index.html" data-icon="home" data-iconpos="notext" data-direction="reverse">Return to Home page</a>
 			</div>
-			<div data-role = "content">
-				<p> Okay, so maybe there aren't just three questions in this quiz...that's what you get for trusting
-				an old guy standing on a bridge.</p>
-				<div data-role = "collapsible-set">
-					<div data-role = "collapsible">
-						<h2>Instructions</h2>
-							<ul data-role = "listview">		
-								<li>This quiz covers memorable moments from Monty Python and the Holy Grail.
-								If you have seen the movie (and you should) you will most likely pass. If you do not pass...
-								well, let's just say it won't be pretty.</li>
-							</ul>
-					</div>
-					<div data-role = "collapsible">
-						<h2>Scoring</h2>
-							<ul data-role = "listview">
-								<li>Your quiz will be scored based on how many questions you get right. The breakdown is as follows:</li>
-									<li>For getting none of the questions correct, you will be viciously attacked by a rabbit.</li>
-									<li>For getting 20% to 30% of the questions correct, a frenchman will taunt you and call your mother various names.</li>
-									<li>For getting 40% to 50% of the questions correct, a knight will say NI! at you.</li>
-									<li>For getting 60% to 70% of the questions correct, you will be serenaded by the minstrels of Sir Robin.</li>
-									<li>For getting 80% to 90% of the questions correct, you will arrive at Camelot.</li>
-									<li>For getting 90% to 95% of the questions correct, the Enchanter will awe you with his power.</li>
-									<li>For getting 100% of the questions correct, you will retrieve the Holy Grail and complete your quest.</li>
-							</ul>
-					</div>
-					<div data-role = "collapsible">
-						<h2>Quiz</h2>
-							<a href="quiz.html">Take the Quiz!</a>
-					</div>
-						
+			<div data-role = "content" data-theme="b">
+			
+			<form id="montyQuiz">			
+				<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup" data-type="vertical">
+					<legend>Question 1: What is the name of Arthur's manservant?</legend>
+						<input type="radio" name="question1" id="question1-radio-a" value="Patrick"/>
+						<label for="question1-radio-a">A. Patrick</label>
+						<input type="radio" name="question1" id="question1-radio-b" value="Pansy"/>
+						<label for="question1-radio-b">B. Pansy</label>
+						<input type="radio" name="question1" id="question1-radio-c" value="Patsy"/>
+						<label for="question1-radio-c">C. Patsy</label>
+						<input type="radio" name="question1" id="question1-radio-d" value="Richard"/>
+						<label for="question1-radio-d">D. Richard</label>
+				</fieldset>
 				</div>
-			</div>
+				
+				<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup" data-type="vertical">
+					<legend>Question 2: Do coconuts migrate?</legend>
+						<input type="radio" name="question2" id="question2-radio-a" value="True"/>
+						<label for="question2-radio-a">A. True</label>
+						<input type="radio" name="question2" id="question2-radio-b" value="False"/>
+						<label for="question2-radio-b">B. False</label>						
+				</fieldset>
+				</div>
+				
+				<div data-role="fieldcontain">
+				<fieldset data-role "controlgroup" data-type="vertical">
+					<legend>Question 3: The knights of Ni demand what as a sacrifice?</legend>
+						<input type="radio" name="question3" id="question3-radio-a" value="Human"/>
+						<label for="question3-radio-a">A. Human</label>
+						<input type="radio" name="question3" id="question3-radio-b" value="Horse"/>
+						<label for="question3-radio-b">B. Horse </label>
+						<input type="radio" name="question3" id="question3-radio-c" value="Flower"/>
+						<label for="question3-radio-c">C. Flower </label>
+						<input type="radio" name="question3" id="question3-radio-d" value="Shrubbery"/>
+						<label for="question3-radio-d">D. Shrubbery </label>
+				</fieldset>
+				</div>
+				
+				<div data-role="fieldcontain">
+				<fieldset data-role "controlgroup" data-type="vertical">
+					<legend>Question 4: What animal is repeatedly mentioned throughout the opening credits?</legend>
+						<input type="radio" name="question4" id="question4-radio-a" value="Dog"/>
+						<label for="question4-radio-a">A. Dog</label>
+						<input type="radio" name="question4" id="question4-radio-b" value="Hamster"/>
+						<label for="question4-radio-b">B. Hamster</label>
+						<input type="radio" name="question4" id="question4-radio-c" value="Elk"/>
+						<label for="question4-radio-c">C. Elk</label>
+						<input type="radio" name="question4" id="question4-radio-d" value="Moose"/>
+						<label for="question4-radio-d">D. Moose</label>
+				</fieldset>
+				</div>
+				
+				<div data-role="fieldcontain">
+				<fieldset data-role "controlgroup" data-type="vertical">
+					<legend>Question 5: What is the name of the Enchanter with goat horns?</legend>
+						<input type="radio" name="question5" id="question5-radio-a" value="Tom"/>
+						<label for="question5-radio-a">A. Tom</label>
+						<input type="radio" name="question5" id="question5-radio-b" value="Jim"/>
+						<label for="question5-radio-b">B. Jim</label>
+						<input type="radio" name="question5" id="question5-radio-c" value="Tim"/>
+						<label for="question5-radio-c">C. Tim</label>
+						<input type="radio" name="question5" id="question5-radio-d" value="Frank"/>
+						<label for="question5-radio-d">D. Frank</label>
+				</fieldset>
+				</div>
+				
+				<div data-role="fieldcontain">
+				<fieldset data-role "controlgroup" data-type="vertical">
+					<legend>Question 6: What bird comes up repeatedly in the movie?</legend>
+						<input type="radio" name="question6" id="question6-radio-a" value="Pidgeon"/>
+						<label for="question6-radio-a">A. Pidgeon</label>
+						<input type="radio" name="question6" id="question6-radio-b" value="Swallow"/>
+						<label for="question6-radio-b">B. Swallow</label>
+						<input type="radio" name="question6" id="question6-radio-c" value="Parakeet"/>
+						<label for="question6-radio-c">C. Parakeet</label>
+						<input type="radio" name="question6" id="question6-radio-d" value="Finch"/>
+						<label for="question6-radio-d">D. Finch</label>
+				</fieldset>
+				</div>
+				
+				<div data-role="fieldcontain">
+				<fieldset data-role "controlgroup" data-type="vertical">
+					<legend>Question 7: What is the name of the old woman Arthur encounters?</legend>
+						<input type="radio" name="question7" id="question7-radio-a" value="Dennis"/>
+						<label for="question7-radio-a">A. Dennis</label>
+						<input type="radio" name="question7" id="question7-radio-b" value="Bob"/>
+						<label for="question7-radio-b">B. Bob</label>
+						<input type="radio" name="question7" id="question7-radio-c" value="Gretchen"/>
+						<label for="question7-radio-c">C. Gretchen</label>
+						<input type="radio" name="question7" id="question7-radio-d" value="Phanny"/>
+						<label for="question7-radio-d">D. Phanny</label>
+				</fieldset>
+				</div>
+				
+				<div data-role="fieldcontain">
+				<fieldset data-role "controlgroup" data-type="vertical">
+					<legend>Question 8: What item is used to defeat the beast guarding the cave Caerbannag?</legend>
+						<input type="radio" name="question8" id="question8-radio-a" value="Excalibur"/>
+						<label for="question8-radio-a">A. Excalibur</label>
+						<input type="radio" name="question8" id="question8-radio-b" value="Boot of the Almighty"/>
+						<label for="question8-radio-b">B. Boot of the Almighty</label>
+						<input type="radio" name="question8" id="question8-radio-c" value="Holy Hand Grenade of Antioch"/>
+						<label for="question8-radio-c">C. Holy Hand Grenade of Antioch</label>
+						<input type="radio" name="question8" id="question8-radio-d" value="A wooden spoon"/>
+						<label for="question8-radio-d">D. A wooden spoon</label>
+				</fieldset>
+				</div>
+				
+				<div data-role="fieldcontain">
+				<fieldset data-role "controlgroup" data-type="vertical">
+					<legend>Question 9: What Trojan contraption was built by the knights to breach the French fortress?</legend>
+						<input type="radio" name="question9" id="question9-radio-a" value="Rabbit"/>
+						<label for="question9-radio-a">A. Rabbit</label>
+						<input type="radio" name="question9" id="question9-radio-b" value="Horse"/>
+						<label for="question9-radio-b">B. Horse</label>
+						<input type="radio" name="question9" id="question9-radio-c" value="Moose"/>
+						<label for="question9-radio-c">C. Moose</label>
+						<input type="radio" name="question9" id="question9-radio-d" value="Dog"/>
+						<label for="question9-radio-d">D. Dog</label>
+				</fieldset>
+				</div>
+				
+				<div data-role="fieldcontain">
+				<fieldset data-role "controlgroup" data-type="vertical">
+					<legend>Final Question: What weighs the same as a witch?</legend>
+						<input type="radio" name="question10" id="question10-radio-a" value="Pug"/>
+						<label for="question10-radio-a">A. Pug</label>
+						<input type="radio" name="question10" id="question10-radio-b" value="Duck"/>
+						<label for="question10-radio-b">B. Duck</label>
+						<input type="radio" name="question10" id="question10-radio-c" value="Rabbit"/>
+						<label for="question10-radio-c">C. Rabbit</label>
+						<input type="radio" name="question10" id="question10-radio-d" value="Wood"/>
+						<label for="question10-radio-d">D. Wood</label>
+				</fieldset>
+				</div>
+				<button type="button" name="submit" id="submit" onclick="getAnswers()" data-theme="b">Submit</button>
+						
+				
+			</form>
+				
+				
 		</div>
 	</body>
-	
-	
-	
 </html>
