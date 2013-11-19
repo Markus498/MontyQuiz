@@ -61,19 +61,15 @@
 			}
 		
 		
-					
-			function onLoad(){
-				document.addEventListener("deviceready", onDeviceReady, false);
-			}
-			
-			function onDeviceReady(){
+			$(document).ready(function(){
 				var submitButton = document.getElementById('submit');
-				submitButton.addEventListener('ontouch', function(){
-				calculateScore();}, false);
-				
+				submitButton.addEventListener('click', function(){
+					calculateScore();}, false);
+			});
+
 			
 			
-			}
+			
 				
 				
 		</script>
@@ -226,7 +222,7 @@
 						<label for="question10-radio-d">D. Wood</label>
 				</fieldset>
 				</div>
-				<button type="button" name="submit" id="submit" data-theme="b">Submit</button>
+				<button type="button" name="submit" id="submit" onclick="calculateScore()" data-theme="b">Submit</button>
 						
 				
 			</form>
