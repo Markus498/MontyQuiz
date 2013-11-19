@@ -19,7 +19,7 @@
 			function getAnswers(){
 			
 				var submittedAnswers = new Array();
-				alert('I got answers');
+				
 				
 				submittedAnswers[0] = $('input[name=question1]:checked', '#montyQuiz').val();
 				submittedAnswers[1] = $('input[name=question2]:checked', '#montyQuiz').val();
@@ -37,6 +37,7 @@
 				
 			function calculateScore(){
 				var submittedAnswers = getAnswers();
+				alert(submittedAnswers[0]);
 				
 				var correct =0;						
 				
@@ -223,7 +224,7 @@
 						<label for="question10-radio-d">D. Wood</label>
 				</fieldset>
 				</div>
-				<button type="button" name="submit" id="submit" onclick="getAnswers()" data-theme="b">Submit</button>
+				<button type="button" name="submit" id="submit" data-theme="b">Submit</button>
 						
 				
 			</form>
