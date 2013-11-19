@@ -20,7 +20,7 @@
 			
 				var submittedAnswers = new Array();
 				submittedAnswers = $('input:checked');
-				alert(submittedAnswers[0].value);
+				alert('HI THERE!');
 				
 				return submittedAnswers;
 			}
@@ -32,7 +32,7 @@
 				var correct =0;						
 				
 				for (var k=0; k<submittedAnswers.length; k++){
-					if (answers[k]==submittedAnswers[k]){ ++correct;}				
+					if (answers[k]==submittedAnswers[k].value){ ++correct;}				
 				}
 				
 				var score = (correct / 10) * 100;
