@@ -14,15 +14,15 @@
 		
 		<script type = "text/javascript">
 			
-			var answers["Patsy", "False", "Shrubbery", "Moose", "Tim", "Swallow", "Dennis", "Holy Hand Grenade of Antioch", "Rabbit", "Duck"];			
+			var answers = new Array("Patsy", "False", "Shrubbery", "Moose", "Tim", "Swallow", "Dennis", "Holy Hand Grenade of Antioch", "Rabbit", "Duck");
+			
 			
 			function getAnswers(){
-			
+				
+				
 				var submittedAnswers = new Array();
 				submittedAnswers = $('input:checked');
-				alert('HI THERE!');
-				
-				return submittedAnswers;
+				return submittedAnswers; 
 			}
 				
 			function calculateScore(){
@@ -52,18 +52,10 @@
 				if (score >= 0 && score < 20){ alert("You didn't even try..for this grave injustice, you will forever be cursed to have rabbits follow you around everywhere, awaiting their chance to utterly destroy you with their...with their...RABBITY POWERS.");}
 			}
 		
-		/*
-			$(document).ready(function(){
-				var submitButton = document.getElementById('submit');
-				submitButton.addEventListener('click', function(){
-					calculateScore();}, false);
-			});
-		*/
 			
-			
-			
-				
-				
+		
+		
+		
 		</script>
 		
 	</head>
@@ -214,7 +206,7 @@
 						<label for="question10-radio-d">D. Wood</label>
 				</fieldset>
 				</div>
-				<button type="button" name="submit" id="submit" onclick="getAnswers()" data-theme="b">Submit</button>
+				<button type="button" name="submit" id="submit" onclick="calculateScore()"data-theme="b">Submit</button>
 						
 				
 			</form>
