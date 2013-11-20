@@ -13,6 +13,8 @@
     <description>
         A ten question Monty Python trivia app. 
     </description>
+	
+	<icon src="monty_quiz.png"/>
 
     <author email="casespar@iupui.edu">
         Casey Sparks 
