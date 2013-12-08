@@ -6,9 +6,10 @@
 		<meta charset = "UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+		<script src="cordova-2.1.0.js"></script>
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
-		<script src="cordova-2.1.0.js"></script>
+		
 		
 		<title>Monty Python Quiz</title>
 		
@@ -75,14 +76,12 @@
 				 
 			}
 
-			// Transaction error callback
-			//
+			
 			function errorCB(err) {
 				alert("Error processing SQL: "+err);
 			}
 
-			// Transaction success callback
-			//
+			
 			function successCB() {
 				alert("success!");
 			}
