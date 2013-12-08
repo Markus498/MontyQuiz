@@ -71,12 +71,9 @@
 			}
 			
 			
-			function createTables(){
-				MontyDB.transaction(
-					function (transaction) {
-						transaction.executeSql('CREATE TABLE IF NOT EXISTS history(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, fname TEXT NOT NULL, score INTEGER NOT NULL);', []);
-					}
-				);
+			function createTables(MontyDB){
+				MontyDB.executeSql('CREATE TABLE IF NOT EXISTS history(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, fname TEXT NOT NULL, score INTEGER NOT NULL)', []);
+					
 				
 			}
 
@@ -93,11 +90,9 @@
 			
 			
 			function onDeviceReady(){
-				window.openDatabase('MontyDB', '1.0', 'Monty Quiz Database', 5*1024*1024, function (db) {
-					db.changeVersion('', '1.0', function (t) {
-					t.executeSql('CREATE TABLE IF NOT EXISTS history(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, fname TEXT NOT NULL, score INTEGER NOT NULL);');
-					}, error);
-				});
+				var db = window.openDatabase('MontyDB', '1.0', 'Monty Quiz Database', 5*1024*1024);
+				
+				db.transaction(createTables);
 			}
 		
 			
