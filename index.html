@@ -15,7 +15,7 @@
 		
 		<script type = "text/javascript">
 			document.addEventListener("deviceready", onDeviceReady, false);
-			var $j = jQuery.noConflict();
+			var $ = jQuery.noConflict();
 			var answers = new Array("Patsy", "False", "Shrubbery", "Moose", "Tim", "Swallow", "Dennis", "Holy Hand Grenade of Antioch", "Rabbit", "Duck");
 					
 			var user = prompt("What is your first name?" , "");		
@@ -26,7 +26,7 @@
 			
 			function getAnswers(){				
 				var submittedAnswers = new Array();
-				submittedAnswers = $j('input:checked');
+				submittedAnswers = $('input:checked');
 				return submittedAnswers; 
 			}
 			
