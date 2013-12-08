@@ -13,17 +13,31 @@
 		
 		
 		<script type = "text/javascript">
-			
 			var answers = new Array("Patsy", "False", "Shrubbery", "Moose", "Tim", "Swallow", "Dennis", "Holy Hand Grenade of Antioch", "Rabbit", "Duck");
+					
+			var user = prompt("What is your first name?" , "");		
+			var sanitizedUser = user.replace(/[^\w\d]/g, "");
+			if(!sanitizedUser) sanitizedUser = 'Herp';
+			alert("Hi, " + sanitizedUser + " and welcome to my Monty Quiz app!");
+						
 			
-			
-			function getAnswers(){
-				
-				
+			function getAnswers(){				
 				var submittedAnswers = new Array();
 				submittedAnswers = $('input:checked');
 				return submittedAnswers; 
 			}
+			
+			
+			function updateHistory(data){
+				var user = data[0];
+				var score = data[1];
+				var sql = 'INSERT INTO HISTORY(fname,score) VALUES("'+user+'", "'+score+'")';
+				
+				MontyDB.transaction(
+					function (transaction) {
+						transaction.executeSql(sql);});
+			}
+			
 				
 			function calculateScore(){
 				var submittedAnswers = getAnswers();				
@@ -34,6 +48,9 @@
 				}
 				
 				var score = (correct / 10) * 100;
+				var data = new Array(sanitizedUser, score);
+				updateHistory(data);
+			
 				
 				if (score >= 20 && score <= 30){ alert("Your score was: " + score + "%" + "\n" +  " Your mother was a hamster, and your father smelled of elderberries!");}
 				
@@ -50,17 +67,33 @@
 				if (score >= 0 && score < 20){ alert("You didn't even try..for this grave injustice, you will forever be cursed to have rabbits follow you around everywhere, awaiting their chance to utterly destroy you with their...with their...RABBITY POWERS.");}
 			}
 			
+			
+			function createTables(){
+				MontyDB.transaction(
+					function (transaction) {
+						transaction.executeSql('CREATE TABLE IF NOT EXISTS history(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, fname TEXT NOT NULL, score INTEGER NOT NULL);', []);
+					}
+				);
+				
+			}
+
+
+			
+			
+			
+			
 			function initDatabase() {
 				try {
 					if (!window.openDatabase) {
 						alert('Databases are not supported in this browser.');
 					} else {
-						var shortName = 'DEMODB';
+						var shortName = 'MontyDB';
 						var version = '1.0';
-						var displayName = 'DEMO Database';
-						var maxSize = 100000; //  bytes
-						DEMODB = openDatabase(shortName, version, displayName, maxSize);
-						alert('Databases are supported in this browser.');
+						var displayName = 'Monty Quiz Database';
+						var maxSize = 1000000; //  bytes
+						MontyDB = openDatabase(shortName, version, displayName, maxSize);
+						createTables();
+						calculateScore();
 					}
 				} catch(e) {
 			 
@@ -72,7 +105,9 @@
 					}
 					return;
 				}
-}
+			}
+			
+			
 		
 			
 		
