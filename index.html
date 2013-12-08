@@ -8,11 +8,14 @@
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+		<script src="cordova-2.1.0.js"></script>
 		
 		<title>Monty Python Quiz</title>
 		
 		
 		<script type = "text/javascript">
+			document.addEventListener("deviceready", onDeviceReady, false);
+			
 			var answers = new Array("Patsy", "False", "Shrubbery", "Moose", "Tim", "Swallow", "Dennis", "Holy Hand Grenade of Antioch", "Rabbit", "Duck");
 					
 			var user = prompt("What is your first name?" , "");		
@@ -78,7 +81,7 @@
 			}
 
 	
-			function initDatabase(ready, error){
+			function initDatabase(){
 				openDatabase('MontyDB', '1.0', 'Monty Quiz Database', 5*1024*1024, function (db) {
 					db.changeVersion('', '1.0', function (t) {
 					t.executeSql('CREATE TABLE IF NOT EXISTS history(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, fname TEXT NOT NULL, score INTEGER NOT NULL);');
@@ -89,7 +92,13 @@
 			}	
 			
 			
-			
+			function onDeviceReady(){
+				window.openDatabase('MontyDB', '1.0', 'Monty Quiz Database', 5*1024*1024, function (db) {
+					db.changeVersion('', '1.0', function (t) {
+					t.executeSql('CREATE TABLE IF NOT EXISTS history(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, fname TEXT NOT NULL, score INTEGER NOT NULL);');
+					}, error);
+				});
+			}
 		
 			
 		
@@ -244,7 +253,7 @@
 						<label for="question10-radio-d">D. Wood</label>
 				</fieldset>
 				</div>
-				<button type="button" name="submit" id="submit" onclick="initDatabase()"data-theme="b">Submit</button>
+				<button type="button" name="submit" id="submit" onclick="calculateScore()"data-theme="b">Submit</button>
 						
 				
 			</form>
