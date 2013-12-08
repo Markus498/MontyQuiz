@@ -31,12 +31,12 @@
 			}
 			
 			
-			function updateHistory(data){
+			function updateHistory(data,db){
 				var user = data[0];
 				var score = data[1];
 				var sql = 'INSERT INTO HISTORY(fname,score) VALUES("'+user+'", "'+score+'")';
-				
-				MontyDB.transaction(
+				var db = window.openDatabase("MontyDB", "1.0", "Monty Quiz Database", 200000);
+				db.transaction(
 					function (transaction) {
 						transaction.executeSql(sql);});
 			}
@@ -70,11 +70,9 @@
 				if (score >= 0 && score < 20){ alert("You didn't even try..for this grave injustice, you will forever be cursed to have rabbits follow you around everywhere, awaiting their chance to utterly destroy you with their...with their...RABBITY POWERS.");}
 			}
 		
-			function populateDB(tx) {
-				 tx.executeSql('DROP TABLE IF EXISTS DEMO');
-				 tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id unique, data)');
-				 tx.executeSql('INSERT INTO DEMO (id, data) VALUES (1, "First row")');
-				 tx.executeSql('INSERT INTO DEMO (id, data) VALUES (2, "Second row")');
+			function createTables(db) {
+				 db.executeSql('CREATE TABLE IF NOT EXISTS history(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, fname TEXT NOT NULL, score INTEGER NOT NULL)');
+				 
 			}
 
 			// Transaction error callback
@@ -91,8 +89,8 @@
 				
 					
 			function onDeviceReady() {
-				var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
-				db.transaction(populateDB, errorCB, successCB);
+				var db = window.openDatabase("MontyDB", "1.0", "Monty Quiz Database", 200000);
+				db.transaction(createTables, errorCB, successCB);
 			}
 
     
@@ -106,7 +104,7 @@
 		
 	</head>
 	
-	<body>
+	<body onload="onDeviceReady()">
 		<div data-role="page">
 		
 		
