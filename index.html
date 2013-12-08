@@ -78,20 +78,13 @@
 			}
 
 	
-			function initDatabase() {
-				alert('Called initDatabase!');
-				
-					var shortName = 'MontyDB';
-					var version = '1.0';
-					var displayName = 'Monty Quiz Database';
-					var maxSize = 1000000; //  bytes
-					MontyDB = openDatabase(shortName, version, displayName, maxSize);
-					alert('Database opened!');
-					createTables();
-					calculateScore();
-				
-				
-			}
+			function initDatabase(ready, error){
+				return openDatabase('documents', '1.0', 'Offline document storage', 5*1024*1024, function (db) {
+					db.changeVersion('', '1.0', function (t) {
+					t.executeSql('CREATE TABLE docids (id, name)');
+					}, error);
+				});
+			}	
 			
 			
 			
