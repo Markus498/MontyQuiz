@@ -31,7 +31,7 @@
 			}
 			
 			
-			function updateHistory(data,db){
+			function updateHistory(data){
 				var user = data[0];
 				var score = data[1];
 				var sql = 'INSERT INTO HISTORY(fname,score) VALUES("'+user+'", "'+score+'")';
