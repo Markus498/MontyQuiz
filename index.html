@@ -77,12 +77,9 @@
 				
 			}
 
-
-			
-			
-			
-			
+	
 			function initDatabase() {
+				alert('Called initDatabase!');
 				try {
 					if (!window.openDatabase) {
 						alert('Databases are not supported in this browser.');
@@ -92,6 +89,7 @@
 						var displayName = 'Monty Quiz Database';
 						var maxSize = 1000000; //  bytes
 						MontyDB = openDatabase(shortName, version, displayName, maxSize);
+						alert('Database opened!');
 						createTables();
 						calculateScore();
 					}
