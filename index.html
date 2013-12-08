@@ -71,30 +71,32 @@
 			}
 			
 			
-			function createTables(MontyDB){
-				MontyDB.executeSql('CREATE TABLE IF NOT EXISTS history(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, fname TEXT NOT NULL, score INTEGER NOT NULL)', []);
-					
-				
-			}
+			function onDeviceReady() {
+        var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+        db.transaction(populateDB, errorCB, successCB);
+    }
 
-	
-			function initDatabase(){
-				openDatabase('MontyDB', '1.0', 'Monty Quiz Database', 5*1024*1024, function (db) {
-					db.changeVersion('', '1.0', function (t) {
-					t.executeSql('CREATE TABLE IF NOT EXISTS history(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, fname TEXT NOT NULL, score INTEGER NOT NULL);');
-					}, error);
-				});
-				alert('Database created!');
-					
-			}	
+    // Populate the database 
+    //
+    function populateDB(tx) {
+         tx.executeSql('DROP TABLE IF EXISTS DEMO');
+         tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id unique, data)');
+         tx.executeSql('INSERT INTO DEMO (id, data) VALUES (1, "First row")');
+         tx.executeSql('INSERT INTO DEMO (id, data) VALUES (2, "Second row")');
+    }
+
+    // Transaction error callback
+    //
+    function errorCB(err) {
+        alert("Error processing SQL: "+err);
+    }
+
+    // Transaction success callback
+    //
+    function successCB() {
+        alert("success!");
+    }
 			
-			
-			function onDeviceReady(){
-				var db = window.openDatabase('MontyDB', '1.0', 'Monty Quiz Database', 5*1024*1024);
-				
-				db.transaction(createTables);
-			}
-		
 			
 		
 		
