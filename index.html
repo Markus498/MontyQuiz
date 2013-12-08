@@ -34,11 +34,44 @@
 			function updateHistory(data){
 				var user = data[0];
 				var score = data[1];
-				var sql = 'INSERT INTO HISTORY(fname,score) VALUES("'+user+'", "'+score+'")';
+				var datetime = data[2];
+				
+				var sql = 'INSERT INTO history(fname,score,datetime) VALUES("'+user+'", "'+score+'", "'+datetime+'")';
 				var db = window.openDatabase("MontyDB", "1.0", "Monty Quiz Database", 200000);
 				db.transaction(
 					function (transaction) {
 						transaction.executeSql(sql);});
+			}
+			
+			function getHistory(){
+				var sql = 'SELECT * FROM history WHERE fname = ?;';
+				var db = window.openDatabase("MontyDB", "1.0", "Monty Quiz Database", 200000);
+				db.transaction(
+					function (transaction) {
+						transaction.executeSql(sql, [sanitizedUser], function(transaction, results){
+							for (var j=0; j<results.rows.length; j++){
+								var row = results.rows.item(j);
+								alert(row['fname', 'score', 'datetime']);
+							}
+						});
+					});
+					
+			}
+			
+			function getDatetime(){
+				var datetime = new Date();
+				var dd = datetime.getDate();
+				var mm = datetime.getMonth()+1;
+				var yyyy = datetime.getFullYear();
+				var hh = datetime.getHours();
+				var min = datetime.getMinutes();
+				
+				if (dd<10){dd = '0' + dd}
+				if (mm<10){mm='0'+mm}
+				datetime = mm+'/'+dd+'/'+yyyy+'-'+hh+':'+min;
+				
+				return datetime;
+						
 			}
 			
 				
@@ -51,7 +84,8 @@
 				}
 				
 				var score = (correct / 10) * 100;
-				var data = new Array(sanitizedUser, score);
+				var datetime = getDatetime();
+				var data = new Array(sanitizedUser, score, datetime);
 				updateHistory(data);
 			
 				
@@ -71,7 +105,7 @@
 			}
 		
 			function createTables(db) {
-				 db.executeSql('CREATE TABLE IF NOT EXISTS history(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, fname TEXT NOT NULL, score INTEGER NOT NULL)');
+				 db.executeSql('CREATE TABLE IF NOT EXISTS history(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, fname TEXT NOT NULL, score INTEGER NOT NULL, datetime TEXT NOT NULL)');
 				 
 			}
 
@@ -84,11 +118,13 @@
 			function successCB() {
 				alert("success!");
 			}
+			
+			
 				
 					
 			function onDeviceReady() {
 				var db = window.openDatabase("MontyDB", "1.0", "Monty Quiz Database", 200000);
-				db.transaction(createTables, errorCB, successCB);
+				db.transaction(createTables, errorCB, successCB );
 			}
 
     
@@ -102,7 +138,7 @@
 		
 	</head>
 	
-	<body>
+	<body onload="onDeviceReady()">
 		<div data-role="page">
 		
 		
@@ -248,6 +284,7 @@
 				</fieldset>
 				</div>
 				<button type="button" name="submit" id="submit" onclick="calculateScore()"data-theme="b">Submit</button>
+				<button type="button" name="history" id="history" onclick="getHistory()" data-theme="b">View History</button>
 						
 				
 			</form>
