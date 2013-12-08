@@ -79,12 +79,13 @@
 
 	
 			function initDatabase(ready, error){
-				return openDatabase('documents', '1.0', 'Offline document storage', 5*1024*1024, function (db) {
+				openDatabase('MontyDB', '1.0', 'Monty Quiz Database', 5*1024*1024, function (db) {
 					db.changeVersion('', '1.0', function (t) {
-					t.executeSql('CREATE TABLE docids (id, name)');
+					t.executeSql('CREATE TABLE IF NOT EXISTS history(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, fname TEXT NOT NULL, score INTEGER NOT NULL);');
 					}, error);
 				});
 				alert('Database created!');
+					
 			}	
 			
 			
