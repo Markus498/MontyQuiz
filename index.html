@@ -26,9 +26,7 @@
 			}
 				
 			function calculateScore(){
-				var submittedAnswers = getAnswers();
-				
-				
+				var submittedAnswers = getAnswers();				
 				var correct =0;						
 				
 				for (var k=0; k<submittedAnswers.length; k++){
@@ -51,6 +49,30 @@
 				
 				if (score >= 0 && score < 20){ alert("You didn't even try..for this grave injustice, you will forever be cursed to have rabbits follow you around everywhere, awaiting their chance to utterly destroy you with their...with their...RABBITY POWERS.");}
 			}
+			
+			function initDatabase() {
+				try {
+					if (!window.openDatabase) {
+						alert('Databases are not supported in this browser.');
+					} else {
+						var shortName = 'DEMODB';
+						var version = '1.0';
+						var displayName = 'DEMO Database';
+						var maxSize = 100000; //  bytes
+						DEMODB = openDatabase(shortName, version, displayName, maxSize);
+						alert('Databases are supported in this browser.');
+					}
+				} catch(e) {
+			 
+					if (e == 2) {
+						// Version number mismatch.
+						console.log("Invalid database version.");
+					} else {
+						console.log("Unknown error "+e+".");
+					}
+					return;
+				}
+}
 		
 			
 		
@@ -205,7 +227,7 @@
 						<label for="question10-radio-d">D. Wood</label>
 				</fieldset>
 				</div>
-				<button type="button" name="submit" id="submit" onclick="calculateScore()"data-theme="b">Submit</button>
+				<button type="button" name="submit" id="submit" onclick="initDatabase()"data-theme="b">Submit</button>
 						
 				
 			</form>
