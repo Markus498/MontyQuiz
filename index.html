@@ -80,30 +80,21 @@
 	
 			function initDatabase() {
 				alert('Called initDatabase!');
-				try {
-					if (!window.openDatabase) {
-						alert('Databases are not supported in this browser.');
-					} else {
-						var shortName = 'MontyDB';
-						var version = '1.0';
-						var displayName = 'Monty Quiz Database';
-						var maxSize = 1000000; //  bytes
-						MontyDB = openDatabase(shortName, version, displayName, maxSize);
-						alert('Database opened!');
-						createTables();
-						calculateScore();
-					}
-				} catch(e) {
-			 
-					if (e == 2) {
-						// Version number mismatch.
-						console.log("Invalid database version.");
-					} else {
-						console.log("Unknown error "+e+".");
-					}
-					return;
+				if (!window.openDatabase) {
+					alert('Databases are not supported in this browser.');
+				} else {
+					var shortName = 'MontyDB';
+					var version = '1.0';
+					var displayName = 'Monty Quiz Database';
+					var maxSize = 1000000; //  bytes
+					MontyDB = openDatabase(shortName, version, displayName, maxSize);
+					alert('Database opened!');
+					createTables();
+					calculateScore();
 				}
+				
 			}
+			
 			
 			
 		
