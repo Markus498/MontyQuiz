@@ -5,7 +5,7 @@
         versionCode="10" 
         version   = "1.0.0">
 	<gap:platform name="android" />
-	
+	<access origin="http://code.jquery.com" subdomains="true" />
     
 
     <name>Monty Quiz</name>
