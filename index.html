@@ -50,6 +50,7 @@
 						var row = results.rows.item(j);
 						resultRow.push(row);
 					}
+				if (resultRow.length<2){ alert('You have no history to view.'); return;}
 				var lastRow = new Array();
 				var lastRowEntry = resultRow.length-2;
 				lastRow.push(resultRow[lastRowEntry]);
@@ -211,8 +212,8 @@
 					<p>Question 3: The knights of Ni demand what as a sacrifice?</p>
 						<input type="radio" name="question3" id="question3-radio-a" value="Human"/>
 						<label for="question3-radio-a">A. Human</label>
-						<input type="radio" name="question3" id="question3-radio-b" value="Horse"/>
-						<label for="question3-radio-b">B. Horse </label>
+						<input type="radio" name="question3" id="question3-radio-b" value="Cat"/>
+						<label for="question3-radio-b">B. Cat </label>
 						<input type="radio" name="question3" id="question3-radio-c" value="Flower"/>
 						<label for="question3-radio-c">C. Flower </label>
 						<input type="radio" name="question3" id="question3-radio-d" value="Shrubbery"/>
