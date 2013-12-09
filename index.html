@@ -135,7 +135,7 @@
 				
 				if (score >= 60 && score <= 70){ alert("Your score was: " + score + "%" + "\n" + "Brave brave Sir Robin, he bravely ran away!");}
 				
-				if (score >= 80 && score <= 90){ alert("Your score was: " + score + "%" + "\n" + "You and your knights have arrived at Camelot. It is a silly place.");}
+				if (score >= 80 && score <= 89){ alert("Your score was: " + score + "%" + "\n" + "You and your knights have arrived at Camelot. It is a silly place.");}
 				
 				if (score >= 90 && score <= 95){ alert("Your score was: " + score + "%" + "\n" + "There are some who call me....Tim.");}
 				
@@ -156,12 +156,12 @@
 			}
 			
 			function successCB() {
-				alert("success!");
+				alert("Local database successfully created. Have fun with the app!");
 			}			
 					
 			function onDeviceReady() {
 				var db = window.openDatabase("MontyDB", "1.0", "Monty Quiz Database", 200000);
-				db.transaction(createTables, errorCB, successCB );
+				db.transaction(createTables, errorCB, successCB);
 			}
     
 			function resetForm(){
@@ -173,7 +173,7 @@
 		
 	</head>
 	
-	<body onload="onDeviceReady()">
+	<body>
 		<div data-role="page">
 		
 		
