@@ -43,17 +43,31 @@
 						transaction.executeSql(sql);});
 			}
 			
+			
+			function historyCB(transaction, results){
+				var resultRow = new Array();
+					for (var j=0; j<results.rows.length; j++){
+						var row = results.rows.item(j);
+						resultRow.push(row);
+					}
+				var lastRow = new Array();
+				var lastRowEntry = resultRow.length-2;
+				lastRow.push(resultRow[lastRowEntry]);
+				var lastUser = lastRow[0]['fname'];
+				var lastScore = lastRow[0]['score'];
+				var lastTime = lastRow[0]['datetime'];
+				alert(lastUser + ", on " + lastTime + ", your score was : " + lastScore); 
+			}
+			
+			
+			
 			function getHistory(){
 				var sql = 'SELECT * FROM history WHERE fname = ?;';
 				var db = window.openDatabase("MontyDB", "1.0", "Monty Quiz Database", 200000);
+				var resultRow = new Array();
 				db.transaction(
 					function (transaction) {
-						transaction.executeSql(sql, [sanitizedUser], function(transaction, results){
-							for (var j=0; j<results.rows.length; j++){
-								var row = results.rows.item(j);
-								alert(row['fname']);
-							}
-						});
+						transaction.executeSql(sql, [sanitizedUser], historyCB);
 					});
 					
 			}
@@ -74,9 +88,34 @@
 						
 			}
 			
+			function colorAnswers(){
+				var submittedAnswers = getAnswers();
+				var correctAnswers = new Array(10);
+				var incorrectAnswers = new Array(10);
+				
+				for (var k=0; k<answers.length; k++){
+					if (answers[k]==submittedAnswers[k].value){
+						correctAnswers.push(submittedAnswers[k].value);}
+					else incorrectAnswers.push(submittedAnswers[k].value);
+				}
+				
+				
+				for (var j=0; j<correctAnswers.length; j++){
+					var correctAnswer = correctAnswers[j];
+					$('input[value=' + '"' + correctAnswer + '"' + ']').next().css('color', 'green');
+				}
+				
+				for (var i=0; i<incorrectAnswers.length; i++){
+					var incorrectAnswer = incorrectAnswers[i];
+					$('input[value=' + '"' + incorrectAnswer + '"' + ']').next().css('color', 'red');
+				}
+							
+			}
+			
 				
 			function calculateScore(){
-				var submittedAnswers = getAnswers();				
+				var submittedAnswers = getAnswers();
+				if (submittedAnswers.length!=10){ alert('You did not answer all questions. Please answer all of the questions and resubmit.'); return;}
 				var correct =0;						
 				
 				for (var k=0; k<submittedAnswers.length; k++){
@@ -102,37 +141,32 @@
 				if (score == 100){ alert("Behold! The Holy Grail. You step forth to claim it for the Almighty, but what is this? THE BLOODY FRENCH OF CASTLE AUGH STAND IN YOUR WAY! Fear not, for the brave Knights of the Round Table shall smite these foes!...Not really. You are arrested by policemen for violating history. THE END");}
 				
 				if (score >= 0 && score < 20){ alert("You didn't even try..for this grave injustice, you will forever be cursed to have rabbits follow you around everywhere, awaiting their chance to utterly destroy you with their...with their...RABBITY POWERS.");}
+				
+				colorAnswers();
 			}
 		
 			function createTables(db) {
 				 db.executeSql('CREATE TABLE IF NOT EXISTS history(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, fname TEXT NOT NULL, score INTEGER NOT NULL, datetime TEXT NOT NULL)');
 				 
 			}
-
 			
 			function errorCB(err) {
 				alert("Error processing SQL: "+err);
 			}
-
 			
 			function successCB() {
 				alert("success!");
-			}
-			
-			
-				
+			}			
 					
 			function onDeviceReady() {
 				var db = window.openDatabase("MontyDB", "1.0", "Monty Quiz Database", 200000);
 				db.transaction(createTables, errorCB, successCB );
 			}
-
     
-   
-			
-			
-		
-		
+			function resetForm(){
+				$(':radio').next().css("color", "white");
+				
+			}	
 		
 		</script>
 		
@@ -150,7 +184,7 @@
 			<form id="montyQuiz">			
 				<div data-role="fieldcontain">
 				<fieldset data-role="controlgroup" data-type="vertical">
-					<legend>Question 1: What is the name of Arthur's manservant?</legend>
+					<p>Question 1: What is the name of Arthur's manservant?</p>
 						<input type="radio" name="question1" id="question1-radio-a" value="Patrick"/>
 						<label for="question1-radio-a">A. Patrick</label>
 						<input type="radio" name="question1" id="question1-radio-b" value="Pansy"/>
@@ -164,7 +198,7 @@
 				
 				<div data-role="fieldcontain">
 				<fieldset data-role="controlgroup" data-type="vertical">
-					<legend>Question 2: Do coconuts migrate?</legend>
+					<p>Question 2: Do coconuts migrate?</p>
 						<input type="radio" name="question2" id="question2-radio-a" value="True"/>
 						<label for="question2-radio-a">A. True</label>
 						<input type="radio" name="question2" id="question2-radio-b" value="False"/>
@@ -174,7 +208,7 @@
 				
 				<div data-role="fieldcontain">
 				<fieldset data-role "controlgroup" data-type="vertical">
-					<legend>Question 3: The knights of Ni demand what as a sacrifice?</legend>
+					<p>Question 3: The knights of Ni demand what as a sacrifice?</p>
 						<input type="radio" name="question3" id="question3-radio-a" value="Human"/>
 						<label for="question3-radio-a">A. Human</label>
 						<input type="radio" name="question3" id="question3-radio-b" value="Horse"/>
@@ -188,9 +222,9 @@
 				
 				<div data-role="fieldcontain">
 				<fieldset data-role "controlgroup" data-type="vertical">
-					<legend>Question 4: What animal is repeatedly mentioned throughout the opening credits?</legend>
-						<input type="radio" name="question4" id="question4-radio-a" value="Dog"/>
-						<label for="question4-radio-a">A. Dog</label>
+					<p>Question 4: What animal is repeatedly mentioned throughout the opening credits?</p>
+						<input type="radio" name="question4" id="question4-radio-a" value="Wolf"/>
+						<label for="question4-radio-a">A. Wolf</label>
 						<input type="radio" name="question4" id="question4-radio-b" value="Hamster"/>
 						<label for="question4-radio-b">B. Hamster</label>
 						<input type="radio" name="question4" id="question4-radio-c" value="Elk"/>
@@ -202,7 +236,7 @@
 				
 				<div data-role="fieldcontain">
 				<fieldset data-role "controlgroup" data-type="vertical">
-					<legend>Question 5: What is the name of the Enchanter with goat horns?</legend>
+					<p>Question 5: What is the name of the Enchanter with goat horns?</p>
 						<input type="radio" name="question5" id="question5-radio-a" value="Tom"/>
 						<label for="question5-radio-a">A. Tom</label>
 						<input type="radio" name="question5" id="question5-radio-b" value="Jim"/>
@@ -216,7 +250,7 @@
 				
 				<div data-role="fieldcontain">
 				<fieldset data-role "controlgroup" data-type="vertical">
-					<legend>Question 6: What bird comes up repeatedly in the movie?</legend>
+					<p>Question 6: What bird comes up repeatedly in the movie?</p>
 						<input type="radio" name="question6" id="question6-radio-a" value="Pidgeon"/>
 						<label for="question6-radio-a">A. Pidgeon</label>
 						<input type="radio" name="question6" id="question6-radio-b" value="Swallow"/>
@@ -230,7 +264,7 @@
 				
 				<div data-role="fieldcontain">
 				<fieldset data-role "controlgroup" data-type="vertical">
-					<legend>Question 7: What is the name of the old woman Arthur encounters?</legend>
+					<p>Question 7: What is the name of the old woman Arthur encounters?</p>
 						<input type="radio" name="question7" id="question7-radio-a" value="Dennis"/>
 						<label for="question7-radio-a">A. Dennis</label>
 						<input type="radio" name="question7" id="question7-radio-b" value="Bob"/>
@@ -244,7 +278,7 @@
 				
 				<div data-role="fieldcontain">
 				<fieldset data-role "controlgroup" data-type="vertical">
-					<legend>Question 8: What item is used to defeat the beast guarding the cave Caerbannag?</legend>
+					<p>Question 8: What item is used to defeat the beast guarding the cave Caerbannag?</p>
 						<input type="radio" name="question8" id="question8-radio-a" value="Excalibur"/>
 						<label for="question8-radio-a">A. Excalibur</label>
 						<input type="radio" name="question8" id="question8-radio-b" value="Boot of the Almighty"/>
@@ -258,7 +292,7 @@
 				
 				<div data-role="fieldcontain">
 				<fieldset data-role "controlgroup" data-type="vertical">
-					<legend>Question 9: What Trojan contraption was built by the knights to breach the French fortress?</legend>
+					<p>Question 9: What Trojan contraption was built by the knights to breach the French fortress?</p>
 						<input type="radio" name="question9" id="question9-radio-a" value="Rabbit"/>
 						<label for="question9-radio-a">A. Rabbit</label>
 						<input type="radio" name="question9" id="question9-radio-b" value="Horse"/>
@@ -272,19 +306,20 @@
 				
 				<div data-role="fieldcontain">
 				<fieldset data-role "controlgroup" data-type="vertical">
-					<legend>Final Question: What weighs the same as a witch?</legend>
+					<p>Final Question: What weighs the same as a witch?</p>
 						<input type="radio" name="question10" id="question10-radio-a" value="Pug"/>
 						<label for="question10-radio-a">A. Pug</label>
 						<input type="radio" name="question10" id="question10-radio-b" value="Duck"/>
 						<label for="question10-radio-b">B. Duck</label>
-						<input type="radio" name="question10" id="question10-radio-c" value="Rabbit"/>
-						<label for="question10-radio-c">C. Rabbit</label>
+						<input type="radio" name="question10" id="question10-radio-c" value="Hare"/>
+						<label for="question10-radio-c">C. Hare</label>
 						<input type="radio" name="question10" id="question10-radio-d" value="Wood"/>
 						<label for="question10-radio-d">D. Wood</label>
 				</fieldset>
 				</div>
 				<button type="button" name="submit" id="submit" onclick="calculateScore()"data-theme="b">Submit</button>
 				<button type="button" name="history" id="history" onclick="getHistory()" data-theme="b">View History</button>
+				<button type="button" name="reset" id="reset" onclick="resetForm()" data-theme="b">Reset Form</button>
 						
 				
 			</form>
